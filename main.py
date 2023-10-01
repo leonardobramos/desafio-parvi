@@ -2,6 +2,7 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import pandas as pd
 
 
 driver = webdriver.Chrome()
@@ -26,3 +27,14 @@ for post_element in post_elements[:10]:
     dates.append(date_text.strip())
     summaries.append(summary_text.strip())
 
+driver.quit()
+
+data_dict = {
+    'Title: ': titles,
+    'Date: ': dates,
+    'Summary: ': summaries,
+}
+
+df = pd.DataFrame(data_dict)
+
+df.to_csv('data_site.csv', index=False)
